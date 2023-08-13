@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+
+html, body {
+    font-family: 'Mulish', sans-serif;
+    height: 100%;
+	width: 100%;
+}
+
+
+/* HEADER
+/* Panel */
+.nav-link,  .navbar-brand {
+    color: aqua;
+}
+
+.nav-link.active {
+    color: aliceblue;
+}
+
+.navbar-brand img {
+    width: 30px;
+}
+
+/* Autorization */
+#Autorization {
+    color: aqua;
+    justify-content: end;
+    height: 40px;
+}
+
+.nav-item.autorization {
+    display: flex;
+    list-style: none;
+}
+
+.span-autorization{
+    padding-top: 7px;
+}
+
+.page {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.user {
+    padding: 0.5rem;
+}
+
+/* MAIN */
+/* section */
+.content {
+    display: flex;
+}
+
+.sidebar {
+    width: 17%;
+    background-color: #e7e5e5;
+    min-height: 90vh;
+}
+
+.main-content {
+    font-family: 'Lora', serif;
+    width: 83%;
+    min-height: 90vh;
+}
+
+/* Sidebar */
+
+.allpub a, .tables a {
+    text-decoration: none;
+    color: #0059b2;
+}
+
+.allpub a:hover {
+    color: #CC0000;
+}
+
+.tables a:hover {
+    color: #CC0000;
+}
+
+.leftchapters {
+    list-style: none;
+    padding: 20px 10px 10px 20px;
+    font-size: 20px;
+    border-right: 1px solid #ccc;
+    min-height: 100%;
+}
+
+.leftchapters li {
+    border-bottom: 1.5px solid #ccc;
+}
+
+.share {
+    border-top: 1.5px solid #ccc;
+    margin-top: 60px;
+}
+
+.share p {
+    text-align: center;
+}
+
+.share-univer img {
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Main-content */
+
+.main-content {
+    margin: 40px 30px 20px 30px;
+    font-size: 20px;
+}
+
+
+ul.list-articles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.list-articles li {
+	border-bottom: 1px solid #ccc;
+}
+
+div.article-panel {
+    background: #eee;
+    padding: 5px 10px 5px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #555;
+}
+
+div.article-panel p.first {
+    margin: 0;
+    float: left;
+}
+div.article-panel p.last {
+    margin: 0;
+    float: right;
+}
+
+.pages {
+    display: flex;
+    justify-content: center;
+}
+
+/* About */
+
+
+.img-conteiner {
+    float: right;
+    border: 1px solid;
+}
+
+.about-first, .about-second {
+    display: inline-block;
+    width: 700px;
+}
+
+.about-second {
+    margin-top: 50px;
+}
+
+/* Forms */
+
+#button-register, #button-auth {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Footer */
+
+footer {
+    background-color: #212529;
+    padding-top: 5px;
+}
+
+.footer-text {
+    color: aqua;
+    margin: auto auto;
+}
+
+
+

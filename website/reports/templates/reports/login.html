@@ -1,0 +1,42 @@
+{% extends 'reports/base.html' %}
+
+{% block mainmenu %}
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Головна</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'about' %}">Про сайт</a>
+</li>
+{% if request.user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'addpublication' %}">Додати публікацію</a>
+</li>
+{% endif %}
+{% endblock mainmenu %}
+
+{% block autorization %}
+<li class="nav-item autorization"><a class="nav-link active autorization" href="{% url 'login' %}">Авторизація</a><span class="span-autorization">|</span><a class="nav-link autorization" href="{% url 'registration' %}">Реєстрація</a></li>
+{% endblock autorization%}
+
+{% block main_content %}
+<div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-12 text-center">
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <h1 class="text-center">{{title}}</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" id="button-auth" type="submit">Вхід</button>
+            </form>
+
+          </div>
+          <div class="col-lg-4 col-md-12">
+
+          </div>
+        </div>
+      </div>
+
+{% endblock main_content %}

@@ -1,0 +1,45 @@
+{% extends 'reports/base.html' %}
+{% load static %}
+
+{% block mainmenu %}
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Головна</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'about' %}">Про сайт</a>
+</li>
+{% if request.user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'addpublication' %}">Додати публікацію</a>
+</li>
+{% endif %}
+{% endblock mainmenu %}
+
+{% block main_content %}
+<div class="about-conteiner">
+        <div class="img-conteiner">
+            <img class="screenshot" src="{% static 'reports/images/screenshot.png' %}">
+        </div>
+        <div class="about-first">
+            <p>
+                Це інформаційна система для аналітики та формування звітів кафедри, розроблена Борківцем Костянтином для
+                національного університету «Полтавська Політехніка імені Юрія Кондратюка». У даному додатку ви можете перглядати
+                наукові публікації науково-педагогічних працівників кафедри(наукового підрозділу). Також додавати нові публікації,
+                при авторизації/реєстрації, якщо є наявні права. Та передивлятися або завантажувати звіт у файлі MS Word.
+            </p>
+        </div>
+        <div class="about-second">
+            <p>Про звіт:</p>
+            <p>
+                Звіт сформований за допомогою використання бібліотеки «python-docx», він збирає всі публікації з бази даних,
+                сортує їх за шаблоном та видає готовий звіт у файлі MS Word. Щоб завантажити звіт, вам треба авторизуватися/зареєструватися.
+                Вигляд звіту зображено на скріншоті праворуч.
+            </p>
+        </div>
+        {% if request.user.is_authenticated %}
+        <a href="{% static 'reports/word/Report.docx' %}" download>
+            <button class="btn btn-primary">Завантажити звіт</button>
+        </a>
+        {% endif %}
+      </div>
+{% endblock main_content %}

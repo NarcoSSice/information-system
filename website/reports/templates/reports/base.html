@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'reports/images/ico-nupp.ico' %}" type="image/x-icon"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'reports/css/style.css' %}">
+</head>
+
+<body>
+  <div class="page">
+    <!-- Навигационная панель -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <!-- Лого -->
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="https://nupp.edu.ua/uploads/files/0/main/nupp_logo.webp" alt="Logo-university">
+          </a>
+          <!-- Бургер -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Страницы -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              {% block mainmenu %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Головна</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">Про сайт</a>
+              </li>
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'addpublication' %}">Додати публікацію</a>
+              </li>
+              {% endif %}
+              {% endblock mainmenu %}
+            </ul>
+          </div>
+          <!-- Авторизация -->
+          <div class="collapse navbar-collapse" id="Autorization">
+            <ul class="navbar-nav autorization">
+              {% block autorization %}
+              {% if request.user.is_authenticated %}
+              <li class="nav-item autorization"><span class="user">{{ user.username }}</span><span class="span-autorization">|</span><a class="nav-link autorization" href="{% url 'logout' %}">Вихід</a></li>
+              {% else %}
+              <li class="nav-item autorization"><a class="nav-link autorization" href="{% url 'login' %}">Авторизація</a><span class="span-autorization">|</span><a class="nav-link autorization" href="{% url 'registration' %}">Реєстрація</a></li>
+              {% endif %}
+              {% endblock autorization%}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Сайдбар и контент -->
+    <main>
+      <section class="content">
+        <!-- Левый сайдбар -->
+        {% block sidebar %}
+        <div class="sidebar">
+          <ul class="leftchapters">
+            <li class="allpub"><a href="{% url 'home' %}">Всі публікації</a></li>
+            {% for table in tables %}
+            {% if table.get_data %}
+            <li class="tables"><a href="{{ table.get_absolute_url }}">{{ table.get_name }}</a></li>
+            {% endif %}
+            {% endfor %}
+            <li class="share">
+              <p>Сайт універу</p>
+              <a class="share-univer" href="https://nupp.edu.ua/" target="_blank">
+                <img src="https://nupp.edu.ua/uploads/files/0/main/nupp_logo.webp" alt="Site-university">
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% endblock sidebar %}
+        <!-- Контент -->
+        <div class="main-content">
+          {% block main_content %}
+          {% endblock main_content %}
+        <!-- Пагинация -->
+          <nav class="pages">
+            <ul class="pagination">
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая">
+                  <span aria-hidden="true">&laquo;</span>
+                 </a>
+              </li>
+              {% endif %}
+             {% for page in paginator.page_range %}
+             {% if page_obj.number == page %}
+              <li class="page-item active" aria-current="page"><span class="page-link">{{ page }}</span></li>
+             {% else %}
+             <li class="page-item">
+               <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+             </li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+               <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-12 footer-text text-center">
+            <p>All Rights Reserved 2023</p>
+          </div>
+          <div class="col-lg-4 col-md-12 footer-text text-center">
+            <p>NUPP &#9426; Borkivets Kostiantyn 401-TN</p>
+          </div>
+          <div class="col-lg-4 col-md-12 footer-text text-center">
+            <a href="https://t.me/NuppBot" target="_blank">
+              <img style="width: 25px;" src="{% static 'reports/images/tg.png' %}">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

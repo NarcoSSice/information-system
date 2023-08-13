@@ -1,0 +1,17 @@
+{% extends 'reports/base.html' %}
+
+{% block main_content %}
+<ul class="list-articles">
+    {% for p in pubs %}
+        <li><div class="article-panel">
+        <p class="first">Вид публікації: {{ p.category }}</p>
+        <p class="last">Додано: {{ p.time_create|date:"d-m-Y H:i:s"}}</p>
+        </div>
+        <p>{{ p.name }}</p>
+        <div class="clear"></div>
+<!--        <p class="link-delete"><a href="#">Удалить</a></p>-->
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock main_content %}

@@ -1,0 +1,90 @@
+{% extends 'reports/base.html' %}
+{% load static %}
+
+{% block mainmenu %}
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Головна</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'about' %}">Про сайт</a>
+</li>
+{% if request.user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'addpublication' %}">Додати публікацію</a>
+</li>
+{% endif %}
+{% endblock mainmenu %}
+
+{% block main_content %}
+
+<form class="form-addpub" name="addpub" action="{% url 'addpublication' %}" method="post">
+    {% csrf_token %}
+    <!--  Information  -->
+    <div class="mb-3">
+        <label class="form-label">Назва публікації</label>
+        {{ form.name }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Вид публікації</label>
+        {{ form.category }}
+    </div>
+    <!-- Checkbox -->
+    <div class="form-check" id="monograph_check" style="display: none;">
+        {{ form.monograph_check }}
+        <label class="form-check-label">
+            Монографія затверджена вченою радою
+        </label>
+    </div>
+    <div class="form-check" id="collective_monograph" style="display: none;">
+        {{ form.collective_monograph }}
+        <label class="form-check-label">
+            Колективна монографія
+        </label>
+    </div>
+    <div class="form-check" id="professional_publication" style="display: none;">
+        {{ form.professional_publication }}
+        <label class="form-check-label">
+            Стаття у фахових виданнях
+        </label>
+    </div>
+    <div class="form-check" id="foreign_editions" style="display: none;">
+        {{ form.foreign_editions }}
+        <label class="form-check-label">
+            Публікація у закордонних виданнях
+        </label>
+    </div>
+    <div class="form-check" id="mnbd_publications" style="display: none;">
+        {{ form.mnbd_publications }}
+        <label class="form-check-label">
+            Наукові праці, опубліковані та підготовлені до друку у виданнях, що входять у МНБД
+        </label>
+    </div>
+    <div class="form-check" id="foreign_authors" style="display: none;">
+        {{ form.foreign_authors }}
+        <label class="form-check-label">
+            Наукові праці,опубліковані та підготовлені до друку спільно із іноземними співавторами
+        </label>
+    </div>
+    <div class="form-check" id="publications_with_students" style="display: none;">
+        {{ form.publications_with_students }}
+        <label class="form-check-label">
+            Публікація зі студентами
+        </label>
+    </div>
+    <div class="form-check" id="published" style="display: none;">
+        {{ form.published }}
+        <label class="form-check-label">
+            Публікація опублікована
+        </label>
+    </div>
+    <div class="form-check" id="ready_for_print" style="display: none;">
+        {{ form.ready_for_print }}
+        <label class="form-check-label">
+            Публікація підготовлена до друку
+        </label>
+    </div>
+    <!--  Button  -->
+    <button type="submit" class="btn btn-primary">Додати</button>
+</form>
+    <script src="{% static 'reports/js/script.js' %}"></script>
+{% endblock main_content%}
