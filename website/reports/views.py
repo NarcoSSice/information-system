@@ -11,6 +11,8 @@ from .word_document import word_document
 list_tables = [One, Two, Three, Four, FiveOne, FiveTwoOne, FiveTwoTwo, FiveThreeOne,
                FiveThreeTwo, FiveFourOne, FiveFourTwo, Six, Seven]
 
+
+#Its very bad but idk how fix this
 def based(cleaned_data, data):
     if cleaned_data['foreign_editions']:
         if cleaned_data['published']:
@@ -44,12 +46,8 @@ def article(cleaned_data, data):
         FiveOne.objects.create(**data)
     based(cleaned_data, data)
 
-
-def thesis(cleaned_data, data):
-    based(cleaned_data, data)
-
-
 # views
+
 
 class ReportsIndex(ListView):
     paginate_by = 5
@@ -81,15 +79,13 @@ class Addpub(FormView):
             'name': form.cleaned_data['name'],
             'category': form.cleaned_data['category'],
         }
-        executions = {
-            'Монографія': 'monograph(form.cleaned_data, data)',
-            'Підручник': 'Three.objects.create(**data)',
-            'Навчальний посібник': 'Four.objects.create(**data)',
-            'Інший вид публікації': 'Seven.objects.create(**data)',
-            'Стаття': 'article(form.cleaned_data, data)',
-            'Тези': 'thesis(form.cleaned_data, data)'
-        }
-        eval(executions[type_publication])
+        match type_publication:
+            case 'Монографія': monograph(form.cleaned_data, data)
+            case 'Підручник': Three.objects.create(**data)
+            case 'Навчальний посібник': Four.objects.create(**data)
+            case 'Інший вид публікації': Seven.objects.create(**data)
+            case 'Стаття': article(form.cleaned_data, data)
+            case 'Тези': based(form.cleaned_data, data)
         AllReports.objects.create(**data)
         return super().form_valid(form)
 
