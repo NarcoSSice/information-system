@@ -19,9 +19,22 @@ class AddPublicationForm(forms.Form):
 
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Логін'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password', 'placeholder': 'Введіть пароль'}))
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password', 'placeholder': 'Підтвердіть пароль'}))
+    username = forms.CharField(label='Username',
+                               widget=forms.TextInput(
+                                   attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Логін'}
+                               ))
+    password1 = forms.CharField(label='Password',
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control',
+                                           'type': 'password',
+                                           'placeholder': 'Введіть пароль'}
+                                ))
+    password2 = forms.CharField(label='Password confirmation',
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control',
+                                           'type': 'password',
+                                           'placeholder': 'Підтвердіть пароль'}
+                                ))
 
     class Meta:
         model = User
